@@ -1,4 +1,4 @@
-package com.witt.utils;
+package com.witt.practice.hm;
 
 import javax.crypto.*;
 import javax.crypto.spec.DESKeySpec;
