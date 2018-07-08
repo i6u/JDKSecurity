@@ -19,9 +19,11 @@ public class SignatureExample {
 
     public static void main(String[] args) {
         String params = "product=iPhone&price=9688";
+        // 加密
         String sign = signature(params);
         System.out.println(sign);
-        boolean verify = verify(sign, params);
+        // 验证
+        boolean verify = verify(params, sign);
         System.out.println(verify);
     }
 
@@ -43,7 +45,7 @@ public class SignatureExample {
         return null;
     }
 
-    private static boolean verify(String sign, String params) {
+    private static boolean verify(String params, String sign) {
         try {
             // 1. 创建数字签名对象
             Signature signature = Signature.getInstance(ALGORITHM);
@@ -72,6 +74,7 @@ public class SignatureExample {
         }
         return null;
     }
+
     private static PublicKey getPublicKey() {
         try {
             String publicStr = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwLULAjutPzRMX+H6vAi51bigNwWCsObtP6X1EfYFgGHbMjPKDWRUbCAn6t/fnhqhtrvCA/WhrMYuquc6hxoVxbxkmIyCbwHia4ZcXoa7tg4YkxRfbBoN0juZMCXM1S3LcJri6C+nG9ceXuPVbEMTS4iC2OCPwW/GB2a2ZtxqwDECkKAFEhbb9sUEjuwaP+MmZJNv4sldDcIwJR17YPPnKdbJ0O4RuMMgiJCSJ656t2b3bzfHwILJSsoFvaupmtITni0b+6o+0FI+LP+ffU4jU7G0MIoH8tTu5cCs5YWMvIdP21U9Jd2pDRPpqmHb24SpQ2YjjWnzO/9Ovkoj/VjQ2wIDAQAB";
