@@ -18,7 +18,32 @@ public class MessageDigestUtil {
     public static void main(String[] args) {
 
         String str = "多多又胖了";
-        System.out.println(md5(str));
+        System.out.println("md5 " + md5(str)); // 16 -> 32
+        System.out.println("sha-1: " + sha1(str));  // 20 -> 40
+        System.out.println("sha-256: " + sha256(str));  // 32 -> 64
+
+    }
+
+    private static String sha1(String str) {
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA-1");
+            byte[] bytes = messageDigest.digest(str.getBytes());
+            return toHexString(bytes);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private static String sha256(String str) {
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+            byte[] bytes = messageDigest.digest(str.getBytes());
+            return toHexString(bytes);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private static String md5(String str) {
