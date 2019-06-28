@@ -18,7 +18,7 @@ import java.security.spec.InvalidKeySpecException;
 
 public class DESExample {
 
-    private static String str = "witt abc";
+    private static String str = "123456abcdef";
 
     private static void jdkDES() {
         try {
@@ -80,12 +80,12 @@ public class DESExample {
             cipher.init(Cipher.ENCRYPT_MODE, convertSecretKey);
             byte[] result = cipher.doFinal(str.getBytes());
 
-            System.out.println("jdk des encrypt: "+ Hex.toHexString(result));
+            System.out.println("bc des encrypt: "+ Hex.toHexString(result));
 
             // 解密
             cipher.init(Cipher.DECRYPT_MODE, convertSecretKey);
             result = cipher.doFinal(result);
-            System.out.println("jdk des encrypt: " + new String(result));
+            System.out.println("bc des encrypt: " + new String(result));
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (InvalidKeyException e) {
