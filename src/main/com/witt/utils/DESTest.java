@@ -1,12 +1,15 @@
 package com.witt.utils;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
- 
+import java.util.Arrays;
+
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
- 
+
 /**
  * DESTest.java
  * 
@@ -25,10 +28,11 @@ public class DESTest {
 		String password = "12345678";
 		System.out.println("密　钥：" + password);
 		System.out.println("加密前：" + content);
-		byte[] result = encrypt(content, password);
+
+		byte[] result = encrypt(content.getBytes(), password);
 		System.out.println("加密后：" + new String(result));
-		String decryResult = decrypt(result, password);
-		System.out.println("解密后：" + decryResult);
+		byte[] decryResult = decrypt(result, password);
+		System.out.println("解密后：" + new String(decryResult));
 	}
  
 	/**
@@ -40,7 +44,7 @@ public class DESTest {
 	 *            加密的密钥
 	 * @return
 	 */
-	public static byte[] encrypt(String content, String key) {
+	public static byte[] encrypt(byte[] content, String key) {
 		try {
 			SecureRandom random = new SecureRandom();
 
@@ -50,8 +54,7 @@ public class DESTest {
 
 			Cipher cipher = Cipher.getInstance("DES");
 			cipher.init(Cipher.ENCRYPT_MODE, securekey, random);
-			byte[] result = cipher.doFinal(content.getBytes());
-			return result;
+			return cipher.doFinal(content);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -67,7 +70,7 @@ public class DESTest {
 	 *            解密的密钥
 	 * @return
 	 */
-	public static String decrypt(byte[] content, String key) {
+	public static byte[] decrypt(byte[] content, String key) {
 		try {
 			SecureRandom random = new SecureRandom();
 			DESKeySpec desKey = new DESKeySpec(key.getBytes());
@@ -75,8 +78,7 @@ public class DESTest {
 			SecretKey securekey = keyFactory.generateSecret(desKey);
 			Cipher cipher = Cipher.getInstance("DES");
 			cipher.init(Cipher.DECRYPT_MODE, securekey, random);
-			byte[] result = cipher.doFinal(content);
-			return new String(result);
+			return cipher.doFinal(content);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
